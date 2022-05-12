@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>App Gestor de Tarefas</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <!--BootStrap Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center mt-4 titulo">App Gestão de Tarefas</h1>
+    </main>
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4 my-auto">
+            <div class="card">
+                <div class="card-header">
+                    <form action="/criar-tarefa" method="post">
+                        <div class="form-group">
+                            <input type="text" name="conteudo_tarefa" placeholder="Tarefa" class="form-control" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for tarefa in lista_de_tarefas %}
+                        <li class="list-group-item">
+                            <span class="{% if tarefa.feita==true %} tarefa_feita {% endif %}">
+                                {{tarefa.conteudo}}
+                            </span>
+                            <a href="/tarefa-feita/{{tarefa.id}}" style="text-decoration:none">
+                                <!--Codigo do icone escolhido no Bootstrap Icon-->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="{% if tarefa.feita==false %} green {% endif %} {% if tarefa.feita==true %} grey {% endif %}"  class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+</svg>
+                            </a>
+                            <a href="/eliminar-tarefa/{{tarefa.id}}" style="text-decoration:none">
+                                <!--Codigo do icone escolhido no Bootstrap Icon-->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="#FF4500" class="bi bi-x-circle " viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
